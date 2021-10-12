@@ -37,6 +37,6 @@ public class ReadWriteList<E> {
             return list.size();
         } finally {
             reader.unlock();
-        };
+        }
     }
 }
