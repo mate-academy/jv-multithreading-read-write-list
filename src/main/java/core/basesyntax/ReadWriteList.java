@@ -39,5 +39,4 @@ public class ReadWriteList<E> {
             readLock.unlock();
         }
     }
-
 }
