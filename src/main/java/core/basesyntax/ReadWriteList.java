@@ -11,26 +11,32 @@ public class ReadWriteList<E> {
     private ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public void add(E element) {
-        Lock wr = lock.writeLock();
-        wr.lock();
+        Lock writeLock = lock.writeLock();
+        writeLock.lock();
         try {
             list.add(element);
         } finally {
-            wr.unlock();
+            writeLock.unlock();
         }
     }
 
     public E get(int index) {
-        Lock rr = lock.readLock();
-        rr.lock();
+        Lock readLock = lock.readLock();
+        readLock.lock();
         try {
             return list.get(index);
         } finally {
-            rr.unlock();
+            readLock.unlock();
         }
     }
 
     public int size() {
-        return list.size();
+        Lock readLock = lock.readLock();
+        readLock.lock();
+        try {
+            return list.size();
+        } finally {
+            readLock.unlock();
+        }
     }
 }
