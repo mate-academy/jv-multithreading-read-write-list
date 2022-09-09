@@ -9,19 +9,18 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class ReadWriteList<E> {
     private final List<E> list = new ArrayList<>();
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
+    private final Lock writeLock = lock.writeLock();
 
     public void add(E element) {
-        Lock readLock = lock.readLock();
-        readLock.lock();
+        writeLock.lock();
         try {
             list.add(element);
         } finally {
-            readLock.unlock();
+            writeLock.unlock();
         }
     }
 
     public E get(int index) {
-        Lock writeLock = lock.writeLock();
         writeLock.lock();
         try {
             return list.get(index);
@@ -31,7 +30,6 @@ public class ReadWriteList<E> {
     }
 
     public int size() {
-        Lock writeLock = lock.writeLock();
         writeLock.lock();
         try {
             return list.size();
