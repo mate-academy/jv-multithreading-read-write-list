@@ -10,6 +10,7 @@ public class ReadWriteList<E> {
     private final List<E> list = new ArrayList<>();
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
     private final Lock writeLock = lock.writeLock();
+    private final Lock readLock = lock.readLock();
 
     public void add(E element) {
         writeLock.lock();
@@ -21,11 +22,11 @@ public class ReadWriteList<E> {
     }
 
     public E get(int index) {
-        writeLock.lock();
+        readLock.lock();
         try {
             return list.get(index);
         } finally {
-            writeLock.unlock();
+            readLock.unlock();
         }
     }
 
