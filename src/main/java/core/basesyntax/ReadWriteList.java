@@ -7,8 +7,13 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class ReadWriteList<E> {
-    private final List<E> list = new ArrayList<>();
-    private final ReadWriteLock lock = new ReentrantReadWriteLock();
+    private final List<E> list;
+    private final ReadWriteLock lock;
+
+    public ReadWriteList() {
+        list = new ArrayList<>();
+        lock = new ReentrantReadWriteLock();
+    }
 
     public void add(E element) {
         Lock writeLock = lock.writeLock();
