@@ -11,10 +11,10 @@ public class Main {
         Reader reader = new Reader(list);
 
         for (int i = 0; i < 5; i++) {
-            new Thread(writer, "ThreadWriter" + (i + 1)).start();
+            new Thread(writer).start();
         }
         for (int i = 0; i < 10; i++) {
-            new Thread(reader, "ThreadReader" + (i + 1)).start();
+            new Thread(reader).start();
         }
     }
 }
