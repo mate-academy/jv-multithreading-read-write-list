@@ -11,7 +11,6 @@ public class ReadWriteList<E> {
     private ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public void add(E element) {
-        // write your code here
         Lock writeLock = lock.writeLock();
         writeLock.lock();
         try {
@@ -19,16 +18,21 @@ public class ReadWriteList<E> {
         } finally {
             writeLock.unlock();
         }
-
     }
 
     public E get(int index) {
-        // write your code here
-        return list.get(index);
+        E element = null;
+        Lock readLock = lock.readLock();
+        readLock.lock();
+        try {
+            element = list.get(index);
+        } finally {
+            readLock.unlock();
+        }
+        return element;
     }
 
     public int size() {
-        // write your code here
         return list.size();
     }
 }
