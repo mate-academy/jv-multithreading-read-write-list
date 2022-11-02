@@ -21,22 +21,22 @@ public class ReadWriteList<E> {
     }
 
     public E get(int index) {
-        Lock addLock = lock.readLock();
-        addLock.lock();
+        Lock getLock = lock.readLock();
+        getLock.lock();
         try {
             return list.get(index);
         } finally {
-            addLock.unlock();
+            getLock.unlock();
         }
     }
 
     public int size() {
-        Lock addLock = lock.readLock();
-        addLock.lock();
+        Lock sizeLock = lock.readLock();
+        sizeLock.lock();
         try {
             return list.size();
         } finally {
-            addLock.unlock();
+            sizeLock.unlock();
         }
     }
 }
