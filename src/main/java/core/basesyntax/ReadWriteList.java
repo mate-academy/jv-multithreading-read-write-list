@@ -23,15 +23,7 @@ public class ReadWriteList<E> {
     }
 
     public E get(int index) {
-        E output;
-        Lock readLock = lock.readLock();
-        readLock.lock();
-        try {
-            output = list.get(index);
-        } finally {
-            readLock.unlock();
-        }
-        return output;
+        return list.get(index);
     }
 
     public int size() {
