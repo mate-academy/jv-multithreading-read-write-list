@@ -2,8 +2,6 @@ package core.basesyntax.thread;
 
 import core.basesyntax.ReadWriteList;
 import java.util.Random;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class Writer implements Runnable {
     private ReadWriteList<Integer> sharedList;
