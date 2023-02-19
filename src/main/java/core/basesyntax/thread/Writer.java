@@ -1,7 +1,7 @@
 package core.basesyntax.thread;
 
 import core.basesyntax.ReadWriteList;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Writer implements Runnable {
     private ReadWriteList<Integer> sharedList;
@@ -12,7 +12,7 @@ public class Writer implements Runnable {
 
     @Override
     public void run() {
-        int number = new Random().nextInt(100);
+        int number = ThreadLocalRandom.current().nextInt(100);
         sharedList.add(number);
         System.out.println(Thread.currentThread().getName() + " -> write: " + number);
     }
