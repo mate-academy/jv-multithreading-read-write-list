@@ -38,6 +38,6 @@ public class ReadWriteList<E> {
 
     public int size() {
         // write your code here
-        return 0;
+        return list.size();
     }
 }
