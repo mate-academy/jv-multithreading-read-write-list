@@ -2,24 +2,42 @@ package core.basesyntax;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class ReadWriteList<E> {
     private List<E> list = new ArrayList<>();
-    private ReadWriteLock lock = new ReentrantReadWriteLock();
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
+    private final Lock writeLock = lock.writeLock();
+    private final Lock readLock = lock.readLock();
 
     public void add(E element) {
-        // write your code here
+        writeLock.lock();
+        readLock.lock();
+        try {
+            list.add(element);
+        } finally {
+            writeLock.unlock();
+            readLock.unlock();
+        }
     }
 
     public E get(int index) {
-        // write your code here
-        return null;
+        readLock.lock();
+        try {
+            return list.get(index);
+        } finally {
+            readLock.unlock();
+        }
     }
 
     public int size() {
-        // write your code here
-        return 0;
+        readLock.lock();
+        try {
+            return list.size();
+        } finally {
+            readLock.unlock();
+        }
     }
 }
