@@ -14,10 +14,12 @@ public class ReadWriteList<E> {
 
     public void add(E element) {
         writeLock.lock();
+        readLock.lock();
         try {
             list.add(element);
         } finally {
             writeLock.unlock();
+            readLock.unlock();
         }
     }
 
