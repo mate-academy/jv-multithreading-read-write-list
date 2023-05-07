@@ -13,8 +13,8 @@ public class ReadWriteList<E> {
     private final Lock readLock = lock.readLock();
 
     public void add(E element) {
+        writeLock.lock();
         try {
-            writeLock.lock();
             list.add(element);
         } finally {
             writeLock.unlock();
@@ -22,8 +22,8 @@ public class ReadWriteList<E> {
     }
 
     public E get(int index) {
+        readLock.lock();
         try {
-            readLock.lock();
             return list.get(index);
         } finally {
             readLock.unlock();
@@ -31,8 +31,8 @@ public class ReadWriteList<E> {
     }
 
     public int size() {
+        readLock.lock();
         try {
-            readLock.lock();
             return list.size();
         } finally {
             readLock.unlock();
