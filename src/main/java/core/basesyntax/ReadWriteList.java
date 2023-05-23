@@ -24,24 +24,20 @@ public class ReadWriteList<E> {
     public E get(int index) {
         Lock readLock = lock.readLock();
         readLock.lock();
-        E object = null;
         try {
-            object = list.get(index);
+            return list.get(index);
         } finally {
             readLock.unlock();
         }
-        return object;
     }
 
     public int size() {
         Lock writelock = lock.writeLock();
         writelock.lock();
-        int size = 0;
         try {
-            size = list.size();
+            return list.size();
         } finally {
             writelock.unlock();
         }
-        return size;
     }
 }
