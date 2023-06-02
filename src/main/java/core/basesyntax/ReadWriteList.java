@@ -21,20 +21,24 @@ public class ReadWriteList<E> {
     }
 
     public E get(int index) {
-        E element;
         Lock readLock = lock.readLock();
         readLock.lock();
         try {
-            element = list.get(index);
+            return list.get(index);
         } catch (IndexOutOfBoundsException e) {
             throw new RuntimeException("Index is outside the array", e);
         } finally {
             readLock.unlock();
         }
-        return element;
     }
 
     public int size() {
-        return list.size();
+        Lock readLock = lock.readLock();
+        try {
+            readLock.lock();
+            return list.size();
+        } finally {
+            readLock.unlock();
+        }
     }
 }
