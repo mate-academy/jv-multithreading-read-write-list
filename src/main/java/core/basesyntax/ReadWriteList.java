@@ -23,13 +23,13 @@ public class ReadWriteList<E> {
     public E get(int index) {
         Lock writeLock = lock.writeLock();
         writeLock.lock();
-        E result;
+        E element;
         try {
-            result = list.get(index);
+            element = list.get(index);
         } finally {
             writeLock.unlock();
         }
-        return result;
+        return element;
     }
 
     public int size() {
