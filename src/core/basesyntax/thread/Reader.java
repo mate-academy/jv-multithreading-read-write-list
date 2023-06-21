@@ -1,6 +1,7 @@
 package core.basesyntax.thread;
 
 import core.basesyntax.ReadWriteList;
+
 import java.util.Random;
 
 public class Reader implements Runnable {
