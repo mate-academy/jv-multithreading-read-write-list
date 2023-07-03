@@ -1,7 +1,7 @@
-package core.basesyntax;
+package main.java.core.basesyntax;
 
-import core.basesyntax.thread.Reader;
-import core.basesyntax.thread.Writer;
+import main.java.core.basesyntax.thread.Reader;
+import main.java.core.basesyntax.thread.Writer;
 
 public class Main {
     public static void main(String[] args) {
