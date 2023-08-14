@@ -2,6 +2,7 @@ package core.basesyntax;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -31,13 +32,12 @@ public class ReadWriteList<E> {
     }
 
     public int size() {
-        Lock writeLock = lock.writeLock();
         Lock readLock = lock.readLock();
-        writeLock.lock();
         readLock.lock();
-        int size = list.size();
-        writeLock.unlock();
-        readLock.unlock();
-        return size;
+        try {
+            return list.size();
+        } finally {
+            readLock.unlock();
+        }
     }
 }
