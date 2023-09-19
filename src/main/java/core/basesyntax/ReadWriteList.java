@@ -10,16 +10,35 @@ public class ReadWriteList<E> {
     private ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public void add(E element) {
-        // write your code here
+        lock.writeLock().lock();
+
+        try {
+            list.add(element);
+        } finally {
+            lock.writeLock().unlock();
+        }
     }
 
     public E get(int index) {
-        // write your code here
-        return null;
+        lock.readLock().lock();
+
+        try {
+            if (index >= 0 && index < list.size()) {
+                return list.get(index);
+            } else {
+                return null;
+            }
+        } finally {
+            lock.readLock().unlock();
+        }
     }
 
     public int size() {
-        // write your code here
-        return 0;
+        lock.readLock().lock();
+        try {
+            return list.size();
+        } finally {
+            lock.readLock().unlock();
+        }
     }
 }
