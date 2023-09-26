@@ -24,6 +24,9 @@ public class ReadWriteList<E> {
         Lock readLock = lock.readLock();
         readLock.lock();
         try {
+            if (index < 0 || index >= size()) {
+                throw new IndexOutOfBoundsException("Invalid index : " + index);
+            }
             return list.get(index);
         } finally {
             readLock.unlock();
@@ -31,6 +34,12 @@ public class ReadWriteList<E> {
     }
 
     public int size() {
-        return list.size();
+        Lock readLock = lock.readLock();
+        readLock.lock();
+        try {
+            return list.size();
+        } finally {
+            readLock.unlock();
+        }
     }
 }
