@@ -2,8 +2,6 @@ package core.basesyntax;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -12,25 +10,24 @@ public class ReadWriteList<E> {
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public void add(E element) {
-        Lock writeLock = lock.writeLock();
-        writeLock.lock();
+        lock.writeLock().lock();
         try {
             list.add(element);
         } finally {
-            writeLock.unlock();
+            lock.writeLock().unlock();
         }
     }
 
-    public Optional<E> get(int index) {
-        Lock readLock = lock.readLock();
-        readLock.lock();
+    public E get(int index) {
+        lock.readLock().lock();
         try {
             if (index >= 0 && index < list.size()) {
-                return Optional.ofNullable(list.get(index));
+                return list.get(index);
             }
-            return Optional.empty();
+            throw new IndexOutOfBoundsException("Index: " + index
+                    + ", Size: " + list.size());
         } finally {
-            readLock.unlock();
+            lock.readLock().unlock();
         }
     }
 

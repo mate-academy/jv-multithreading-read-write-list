@@ -1,7 +1,6 @@
 package core.basesyntax.thread;
 
 import core.basesyntax.ReadWriteList;
-import java.util.Optional;
 import java.util.Random;
 
 public class Reader implements Runnable {
@@ -16,9 +15,8 @@ public class Reader implements Runnable {
         Random random = new Random();
         int size = sharedList.size();
         if (size > 0) {
-            Optional<Integer> number = sharedList.get(random.nextInt(size));
-            number.ifPresent(value -> System.out.println(Thread.currentThread().getName()
-                    + " -> read: " + value));
+            Integer number = sharedList.get(random.nextInt(size));
+            System.out.println(Thread.currentThread().getName() + " -> read: " + number);
         }
     }
 }
