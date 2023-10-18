@@ -2,7 +2,6 @@ package core.basesyntax;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -12,29 +11,32 @@ public class ReadWriteList<E> {
 
     public void add(E element) {
         // write your code here
-        Lock writeLock = lock.writeLock();
-        Lock readLock = lock.readLock();
-        writeLock.lock();
-        readLock.lock();
-
+        lock.writeLock().lock();
         try {
             list.add(element);
         } finally {
-            writeLock.unlock();
-            readLock.unlock();
+            lock.writeLock().unlock();
         }
     }
 
     public E get(int index) {
         // write your code here
-        if (index >= 0 && index <= size()) {
+        lock.readLock().lock();
+        try {
             return list.get(index);
+        } finally {
+            lock.readLock().unlock();
         }
-        throw  new IndexOutOfBoundsException("The index: " + index + " is not valid for the list!" );
+
     }
 
     public int size() {
         // write your code here
-        return list.size();
+        lock.readLock().lock();
+        try {
+            return list.size();
+        } finally {
+            lock.readLock().unlock();
+        }
     }
 }
