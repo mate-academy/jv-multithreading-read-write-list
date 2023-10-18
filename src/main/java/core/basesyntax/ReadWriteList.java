@@ -21,10 +21,7 @@ public class ReadWriteList<E> {
     public E get(int index) {
         lock.readLock().lock();
         try {
-            if (index >= 0 && index < list.size()) {
-                return list.get(index);
-            }
-            return null;
+            return list.get(index);
         } finally {
             lock.readLock().unlock();
         }
