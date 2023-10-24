@@ -18,7 +18,8 @@ public class ReadWriteList<E> {
             list.add(element);
         } finally {
             writeLock.unlock();
-        }    }
+        }
+    }
 
     public E get(int index) {
         readLock.lock();
