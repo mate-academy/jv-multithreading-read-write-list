@@ -11,7 +11,7 @@ public class ReadWriteList<E> {
     private ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public void add(E element) {
-        Lock writeLock  = lock.writeLock();
+        Lock writeLock = lock.writeLock();
         writeLock.lock();
         try {
             list.add(element);
