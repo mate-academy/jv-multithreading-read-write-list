@@ -23,7 +23,10 @@ public class ReadWriteList<E> {
         // write your code here
         lock.readLock().lock();
         try {
-            return list.get(index);
+            if (index >= 0 && index < list.size()) {
+                return list.get(index);
+            }
+            return null;
         } finally {
             lock.readLock().unlock();
         }
@@ -31,6 +34,11 @@ public class ReadWriteList<E> {
 
     public int size() {
         // write your code here
-        return list.size();
+        lock.readLock().lock();
+        try {
+            return list.size();
+        } finally {
+            lock.readLock().unlock();
+        }
     }
 }
