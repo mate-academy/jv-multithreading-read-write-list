@@ -31,11 +31,12 @@ public class ReadWriteList<E> {
     }
 
     public int size() {
-        lock.readLock().lock();
+        Lock readLock = lock.readLock();
+        readLock.lock();
         try {
             return list.size();
         } finally {
-            lock.readLock().unlock();
+            readLock.unlock();
         }
     }
 }
