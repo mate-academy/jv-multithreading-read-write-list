@@ -7,6 +7,9 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class ReadWriteList<E> {
+    private static final String EXCEPTION = "Index is incorrect";
+    private static final Integer ONE = 1;
+    private static final Integer ZERO = 0;
     private List<E> list = new ArrayList<>();
     private ReadWriteLock lock = new ReentrantReadWriteLock();
     private Lock readLock = lock.readLock();
@@ -24,8 +27,8 @@ public class ReadWriteList<E> {
     public E get(int index) {
         readLock.lock();
         try {
-            if (index - 1 > size()) {
-                throw new RuntimeException("error");
+            if (index - ONE > size() || index < ZERO) {
+                throw new RuntimeException(EXCEPTION);
             }
             return list.get(index);
         } finally {
