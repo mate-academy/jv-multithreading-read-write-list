@@ -4,7 +4,7 @@ import core.basesyntax.ReadWriteList;
 import java.util.Random;
 
 public class Writer implements Runnable {
-    private ReadWriteList<Integer> sharedList;
+    private final ReadWriteList<Integer> sharedList;
 
     public Writer(ReadWriteList<Integer> sharedList) {
         this.sharedList = sharedList;
