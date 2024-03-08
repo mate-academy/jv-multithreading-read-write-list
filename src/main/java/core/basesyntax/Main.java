@@ -4,7 +4,7 @@ import core.basesyntax.thread.Reader;
 import core.basesyntax.thread.Writer;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         ReadWriteList<Integer> list = new ReadWriteList<>();
 
         Writer writer = new Writer(list);
