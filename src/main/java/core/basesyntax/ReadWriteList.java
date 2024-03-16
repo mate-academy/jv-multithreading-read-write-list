@@ -12,7 +12,7 @@ public class ReadWriteList<E> {
     public void add(E element) {
         lock.writeLock().lock();
         try {
-           list.add(element);
+            list.add(element);
         } finally {
             lock.writeLock().unlock();
         }
