@@ -16,7 +16,6 @@ public class ReadWriteList<E> {
         } finally {
             lock.writeLock().unlock();
         }
-
     }
 
     public E get(int index) {
