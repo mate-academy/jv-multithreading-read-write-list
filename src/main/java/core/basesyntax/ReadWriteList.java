@@ -10,21 +10,26 @@ public class ReadWriteList<E> {
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public void add(E element) {
-        // write your code here
-        try {
-            lock.writeLock().lock();
-            list.add(element);
-        } finally {
-            lock.writeLock().unlock();
+        if (element != null) {
+            try {
+                lock.writeLock().lock();
+                list.add(element);
+            } finally {
+                lock.writeLock().unlock();
+            }
         }
     }
 
     public E get(int index) {
-        try {
-            lock.readLock().lock();
-            return list.get(index);
-        } finally {
-            lock.readLock().unlock();
+        if (index >= 0) {
+            try {
+                lock.readLock().lock();
+                return list.get(index);
+            } finally {
+                lock.readLock().unlock();
+            }
+        } else {
+            throw new RuntimeException("Index is lower than 0. Index: " + index);
         }
     }
 
