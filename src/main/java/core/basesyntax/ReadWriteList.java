@@ -2,10 +2,13 @@ package core.basesyntax;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ReadWriteList<T> {
+    private static final Logger logger = LogManager.getLogger(ReadWriteList.class);
     private final List<T> list = new ArrayList<>();
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
@@ -13,9 +16,9 @@ public class ReadWriteList<T> {
         lock.writeLock().lock();
         try {
             list.add(item);
-            System.out.println("Added: " + item);
+            logger.info("Added: " + item);
         } finally {
-            lock.writeLock().unlock(); // Ensure the lock is released even if an exception occurs
+            lock.writeLock().unlock();
         }
     }
 
