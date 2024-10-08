@@ -11,12 +11,10 @@ public class ReadWriteList<E> {
 
     public void add(E element) {
         lock.writeLock().lock();
-        lock.readLock().lock();
         try {
             list.add(element);
         } finally {
             lock.writeLock().unlock();
-            lock.readLock().unlock();
         }
     }
 
