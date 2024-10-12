@@ -25,8 +25,7 @@ public class ReadWriteList<E> {
         lock1.lock();
         try {
             return list.get(index);
-        }
-        finally {
+        } finally {
             lock1.unlock();
         }
     }
