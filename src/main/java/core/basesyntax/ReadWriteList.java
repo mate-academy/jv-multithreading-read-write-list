@@ -10,7 +10,6 @@ public class ReadWriteList<E> {
     private ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public void add(E element) {
-        list.add(element);
         lock.writeLock().lock();
         try {
             list.add(element);
