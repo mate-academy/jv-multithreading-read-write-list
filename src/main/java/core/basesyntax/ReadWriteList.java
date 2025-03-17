@@ -8,9 +8,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class ReadWriteList<E> {
     private List<E> list = new ArrayList<>();
     private ReadWriteLock lock = new ReentrantReadWriteLock();
-
     public void add(E element) {
-        // write your code here
         lock.writeLock().lock();
         try {
             list.add(element);
@@ -22,7 +20,6 @@ public class ReadWriteList<E> {
     public E get(int index) {
         // write your code here
         lock.readLock().lock();
-        E el;
         try {
             return list.get(index);
         } finally {
