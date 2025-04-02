@@ -24,14 +24,14 @@ public class ReadWriteList<E> {
         try {
             element = list.get(index);
         } finally {
-          lock.readLock().unlock();
+            lock.readLock().unlock();
         }
         return element;
     }
 
     public int size() {
-        int size;
         lock.readLock().lock();
+        int size;
         try {
             size = list.size();
         } finally {
@@ -40,3 +40,4 @@ public class ReadWriteList<E> {
         return size;
     }
 }
+
