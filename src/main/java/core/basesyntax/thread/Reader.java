@@ -17,6 +17,7 @@ public class Reader implements Runnable {
         if (size > 0) {
             Integer number = sharedList.get(random.nextInt(size));
             System.out.println(Thread.currentThread().getName() + " -> read: " + number);
+
         }
     }
 }
