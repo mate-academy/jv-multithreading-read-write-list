@@ -2,10 +2,11 @@ package core.basesyntax;
 
 import core.basesyntax.thread.Reader;
 import core.basesyntax.thread.Writer;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        ReadWriteList<Integer> list = new ReadWriteList<>();
+        ReadWriteList<Integer> list = new ReadWriteList<>(new ArrayList<>());
 
         Writer writer = new Writer(list);
         Reader reader = new Reader(list);
