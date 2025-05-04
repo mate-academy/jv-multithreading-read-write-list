@@ -4,22 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class ReadWriteList<E> {
-    private List<E> list = new ArrayList<>();
-    private ReadWriteLock lock = new ReentrantReadWriteLock();
+public class ReadWriteList<T> {
+    private static final Logger logger = LogManager.getLogger(ReadWriteList.class);
+    private final List<T> list = new ArrayList<>();
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
-    public void add(E element) {
-        // write your code here
+    public void add(T item) {
+        lock.writeLock().lock();
+        try {
+            list.add(item);
+            logger.info("Added: " + item);
+        } finally {
+            lock.writeLock().unlock();
+        }
     }
 
-    public E get(int index) {
-        // write your code here
-        return null;
+    public T get(int index) {
+        lock.readLock().lock();
+        try {
+            return list.get(index);
+        } finally {
+            lock.readLock().unlock();
+        }
     }
 
     public int size() {
-        // write your code here
-        return 0;
+        lock.readLock().lock();
+        try {
+            return list.size();
+        } finally {
+            lock.readLock().unlock();
+        }
     }
 }
