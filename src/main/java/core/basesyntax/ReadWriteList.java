@@ -11,15 +11,33 @@ public class ReadWriteList<E> {
 
     public void add(E element) {
         // write your code here
+        lock.writeLock().lock();
+        try {
+            list.add(element);
+        } finally {
+            lock.writeLock().unlock();
+        }
     }
 
     public E get(int index) {
         // write your code here
-        return null;
+        E element;
+        lock.readLock().lock();
+        try {
+            element = list.get(index);
+        } finally {
+            lock.readLock().unlock();
+        }
+        return element;
     }
 
     public int size() {
         // write your code here
-        return 0;
+        lock.readLock().lock();
+        try {
+            return list.size();
+        } finally {
+            lock.readLock().unlock();
+        }
     }
 }
