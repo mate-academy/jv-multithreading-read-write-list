@@ -11,4 +11,4 @@ the conditions above.
 Remember to use `try-finally` construct - you want to release the lock 
 even if the operation with the underlying `list` was not successful.
 
-You can run `main()` to check your solution.
+You can run `main()` to check your solution
