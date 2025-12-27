@@ -30,10 +30,9 @@ public class ReadWriteList<E> {
     }
 
     public int size() {
-        int size = list.size();
         lock.readLock().lock();
         try {
-            return size;
+            return list.size();
         } finally {
             lock.readLock().unlock();
         }
