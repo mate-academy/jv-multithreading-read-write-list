@@ -20,7 +20,6 @@ public class ReadWriteList<E> {
 
     public E get(int index) {
         lock.readLock().lock();
-
         try {
             return list.get(index);
         } finally {
@@ -29,6 +28,11 @@ public class ReadWriteList<E> {
     }
 
     public int size() {
-        return list.size();
+        lock.readLock().lock();
+        try {
+            return list.size();
+        } finally {
+            lock.readLock().unlock();
+        }
     }
 }
