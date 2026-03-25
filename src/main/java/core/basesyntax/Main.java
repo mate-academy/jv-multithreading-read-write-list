@@ -5,7 +5,7 @@ import core.basesyntax.thread.Writer;
 
 public class Main {
     public static void main(String[] args) {
-        ReadWriteList<Integer> list = new ReadWriteList<>();
+        ReadWriteList<Integer> list = new ReadWriteList<Integer>();
 
         Writer writer = new Writer(list);
         Reader reader = new Reader(list);
