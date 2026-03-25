@@ -14,7 +14,7 @@ public class ReadWriteList<E> {
         try {
             list.add(element);
         } finally {
-            lock.writeLock().lock();
+            lock.writeLock().unlock();
         }
     }
 
