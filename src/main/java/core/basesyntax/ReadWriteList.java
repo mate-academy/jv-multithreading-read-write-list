@@ -31,7 +31,7 @@ public class ReadWriteList<E> {
         lock.readLock().lock();
         try {
             return list.size();
-        }  finally {
+        } finally {
             lock.readLock().unlock();
         }
     }
